@@ -1,0 +1,38 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <LangVersion>9.0</LangVersion>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <AssemblyName>ExampleMod</AssemblyName>
+    <RootNamespace>ExampleMod</RootNamespace>
+    <Version>1.0.0</Version>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <GenerateDependencyFile>false</GenerateDependencyFile>
+    <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
+
+    <!-- ==== EDIT THESE TWO for your machine ==== -->
+    <GameManaged>C:\Program Files (x86)\Steam\steamapps\common\Big Ambitions\Big Ambitions_Data\Managed</GameManaged>
+    <ModDeployDir>$(USERPROFILE)\AppData\LocalLow\Hovgaard Games\Big Ambitions\ModsLocal\ExampleMod</ModDeployDir>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- GAME assemblies: Private=false so they are NEVER copied (exactly one DLL in the mod root). -->
+    <Reference Include="BigAmbitions.ModAPI"><HintPath>$(GameManaged)\BigAmbitions.ModAPI.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="BigAmbitions"><HintPath>$(GameManaged)\BigAmbitions.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="BigAmbitions.Items"><HintPath>$(GameManaged)\BigAmbitions.Items.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="HGExtensions"><HintPath>$(GameManaged)\HGExtensions.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="HGPlugins"><HintPath>$(GameManaged)\HGPlugins.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="UnityEngine.CoreModule"><HintPath>$(GameManaged)\UnityEngine.CoreModule.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="UnityEngine.InputLegacyModule"><HintPath>$(GameManaged)\UnityEngine.InputLegacyModule.dll</HintPath><Private>false</Private></Reference>
+  </ItemGroup>
+
+  <!-- Build => install. Close the game first (it locks the DLL); relaunch to test. -->
+  <Target Name="DeployMod" AfterTargets="Build">
+    <MakeDir Directories="$(ModDeployDir)" />
+    <Copy SourceFiles="$(OutputPath)ExampleMod.dll" DestinationFolder="$(ModDeployDir)" />
+    <Message Importance="high" Text="ExampleMod deployed -> $(ModDeployDir)" />
+  </Target>
+
+</Project>

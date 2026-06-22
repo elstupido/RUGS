@@ -1,0 +1,80 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <LangVersion>9.0</LangVersion>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <AssemblyName>RugsMod</AssemblyName>
+    <RootNamespace>Rugs</RootNamespace>
+    <Version>1.0.0</Version>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <GenerateDependencyFile>false</GenerateDependencyFile>
+    <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
+    <DebugType>portable</DebugType>
+
+    <!-- Game install (this machine) -->
+    <GameManaged>D:\SteamLibrary\steamapps\common\Big Ambitions\Big Ambitions_Data\Managed</GameManaged>
+    <!-- Local mod folder the game scans: persistentDataPath\ModsLocal\<Name> -->
+    <ModDeployDir>$(USERPROFILE)\AppData\LocalLow\Hovgaard Games\Big Ambitions\ModsLocal\RUGS!</ModDeployDir>
+  </PropertyGroup>
+
+  <!-- The bundled modding guide ships its own standalone template/tool projects under guide/.
+       Keep their sources out of THIS mod's compile set (the SDK globs **/*.cs by default). -->
+  <ItemGroup>
+    <Compile Remove="guide/**/*.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Private=false: these are the GAME's own DLLs, never copy them into the mod folder
+         (the loader requires EXACTLY ONE dll in the mod root). -->
+    <Reference Include="BigAmbitions.ModAPI">
+      <HintPath>$(GameManaged)\BigAmbitions.ModAPI.dll</HintPath><Private>false</Private>
+    </Reference>
+    <Reference Include="BigAmbitions.Items">
+      <HintPath>$(GameManaged)\BigAmbitions.Items.dll</HintPath><Private>false</Private>
+    </Reference>
+    <Reference Include="BigAmbitions">
+      <HintPath>$(GameManaged)\BigAmbitions.dll</HintPath><Private>false</Private>
+    </Reference>
+    <Reference Include="HGPlugins">
+      <HintPath>$(GameManaged)\HGPlugins.dll</HintPath><Private>false</Private>
+    </Reference>
+    <Reference Include="HGExtensions">
+      <HintPath>$(GameManaged)\HGExtensions.dll</HintPath><Private>false</Private>
+    </Reference>
+    <Reference Include="BigAmbitions.Characters">
+      <HintPath>$(GameManaged)\BigAmbitions.Characters.dll</HintPath><Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>$(GameManaged)\UnityEngine.CoreModule.dll</HintPath><Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.JSONSerializeModule">
+      <HintPath>$(GameManaged)\UnityEngine.JSONSerializeModule.dll</HintPath><Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UIModule">
+      <HintPath>$(GameManaged)\UnityEngine.UIModule.dll</HintPath><Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>$(GameManaged)\UnityEngine.UI.dll</HintPath><Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.TextRenderingModule">
+      <HintPath>$(GameManaged)\UnityEngine.TextRenderingModule.dll</HintPath><Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.PhysicsModule">
+      <HintPath>$(GameManaged)\UnityEngine.PhysicsModule.dll</HintPath><Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.InputLegacyModule">
+      <HintPath>$(GameManaged)\UnityEngine.InputLegacyModule.dll</HintPath><Private>false</Private>
+    </Reference>
+  </ItemGroup>
+
+  <!-- Auto-install into ModsLocal on every build -->
+  <Target Name="DeployMod" AfterTargets="Build">
+    <MakeDir Directories="$(ModDeployDir);$(ModDeployDir)\Locales" />
+    <Copy SourceFiles="$(OutputPath)RugsMod.dll" DestinationFolder="$(ModDeployDir)" />
+    <Copy SourceFiles="$(MSBuildProjectDirectory)\Locales\en.json" DestinationFolder="$(ModDeployDir)\Locales" />
+    <Message Importance="high" Text="RUGS! deployed -> $(ModDeployDir)" />
+  </Target>
+
+</Project>
