@@ -10,3 +10,6 @@ obj/
 # OS
 Thumbs.db
 .DS_Store
+
+# Internal: community-feedback working notes (not for the public repo)
+USER_FEEDBACK/

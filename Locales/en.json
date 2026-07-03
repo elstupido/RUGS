@@ -3,5 +3,22 @@
     "ba:itemname_rocaine": "ROCAINE",
     "ba:itemname_reth": "RETH",
     "ba:itemname_rope": "ROPE",
-    "ba:itemname_ranex": "RANEX"
+    "ba:itemname_ranex": "RANEX",
+    "ba:itemname_rushrooms": "RUSHROOMS",
+    "ba:itemname_radderall": "RADDERALL",
+    "ba:itemname_reroin": "REROIN",
+    "ba:itemname_rentanyl": "RENTANYL",
+    "ba:itemname_rugstash": "Rug Stash",
+    "ba:rugs_plug_desc": "Your guy on the street",
+    "ba:messagetype_rugwire": "{body}",
+    "ba:messagetype_rugaudit": "{body}",
+    "ba:messagetype_rugevent": "{body}",
+    "ba:transaction_rugdeal": "Street Deal",
+    "ba:transaction_rugdeal_label": "Street Deal",
+    "rugs:transaction_fine": "IRS Penalty",
+    "rugs:transaction_fine_label": "IRS Penalty",
+    "rugs:transaction_launder": "Cash Deposit",
+    "rugs:transaction_launder_label": "Cash Deposit",
+    "rugs:transactioncategory_launder": "Cash Deposit",
+    "rugs:transactioncategory_launder_label": "Cash Deposit"
 }

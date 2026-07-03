@@ -1,0 +1,26 @@
+# RUGS! dealer roster — SHIPPED with the mod (embedded in RugsMod.dll as Rugs.Roster.dealers.csv).
+# Format: x,y,z,yRotation,neighborhoodKey,neighborhoodName   (lines starting with # are ignored)
+# This is the authoritative roster every downloader gets. Baked from the F7 capture file
+# (RUGS_dealer_spots.txt). In a Dev build, a local capture file overrides this.
+125.299,0.090,-85.555,83.1,ba:neighborhood_murrayhill,Murray Hill
+213.996,-0.020,5.330,90.0,ba:neighborhood_hellskitchen,Hell's Kitchen
+214.517,0.090,-265.191,61.1,ba:neighborhood_garmentdistrict,Garment District
+405.376,0.020,-395.486,80.1,ba:neighborhood_garmentdistrict,Garment District
+-103.727,0.090,-334.550,249.1,ba:neighborhood_murrayhill,Murray Hill
+259.725,0.090,-6.618,196.8,ba:neighborhood_hellskitchen,Hell's Kitchen
+386.975,0.090,144.616,117.9,ba:neighborhood_hellskitchen,Hell's Kitchen
+355.144,0.090,214.650,95.3,ba:neighborhood_hellskitchen,Hell's Kitchen
+295.979,0.090,177.933,355.6,ba:neighborhood_hellskitchen,Hell's Kitchen
+32.795,0.055,84.279,145.9,ba:neighborhood_midtown,Midtown
+-114.641,0.090,136.228,262.4,ba:neighborhood_midtown,Midtown
+-552.843,0.063,-10.929,173.0,ba:neighborhood_lowermanhattan,Lower Manhattan
+-427.717,0.055,-228.428,186.8,ba:neighborhood_lowermanhattan,Lower Manhattan
+-409.133,0.055,-237.358,281.3,ba:neighborhood_lowermanhattan,Lower Manhattan
+-441.854,-1.450,-257.252,101.8,ba:neighborhood_lowermanhattan,Lower Manhattan
+-433.592,0.055,-234.456,105.0,ba:neighborhood_lowermanhattan,Lower Manhattan
+-1655.543,0.274,-1174.054,141.8,ba:neighborhood_industrycity,Industry City
+-1443.468,2.060,-1403.193,19.0,ba:neighborhood_industrycity,Industry City
+67.769,0.090,-186.446,182.8,ba:neighborhood_murrayhill,Murray Hill
+58.094,0.090,-179.234,306.7,ba:neighborhood_murrayhill,Murray Hill
+228.201,0.098,-110.144,78.5,ba:neighborhood_garmentdistrict,Garment District
+216.648,0.122,-134.120,301.7,ba:neighborhood_garmentdistrict,Garment District

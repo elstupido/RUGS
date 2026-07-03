@@ -46,8 +46,9 @@ namespace Rugs
             _count++;
             log?.Info($"[RUGS! SPOT] #{_count}  {line}");
 
-            // Visual confirmation — drop a preview dealer right on the spot.
-            RugDealerController.Spawn(p, Quaternion.Euler(0f, yRot, 0f), "Spot " + _count, log);
+            // Visual confirmation — drop a preview dealer right on the spot (same deterministic
+            // identity it'll have when loaded from the roster next session).
+            RugDealerController.Spawn(p, Quaternion.Euler(0f, yRot, 0f), key, log);
         }
 
         internal static void Clear(IModLogger log)

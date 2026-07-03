@@ -1,0 +1,50 @@
+[h1]RUGS! — the roadmap[/h1]
+[i]it started with a guy on a corner. it's not staying there.[/i]
+
+ok so. big ambitions is a business sim. i turned it into a drug game. you buy rugs — they're rugs, officially — low and sell 'em high, and try not to get audited. that's the whole thing. it's also somehow not the whole thing.
+
+here's where it's at and where it's going.
+
+[hr][/hr]
+
+[h2]what's in it right now[/h2]
+[list]
+[*][b]9 rugs[/b] — 5 you'll find all over, 4 rare ones that run hot and only turn up off your home block.
+[*][b]22 dealers[/b] across 6 districts. they all price a little different, so there's actual money in shopping around. one near your place always does business; the rest you learn.
+[*][b]the market moves[/b] — prices drift daily, and every so often a rug spikes or tanks in one neighborhood for a few days. that's the play: buy where it crashed, run it where it's hot.
+[*][b]the Plug[/b] — a guy in your phone. texts you the rates every morning, what's moving, and how much heat you're carrying.
+[*]you actually [b]carry the product[/b]. box it, stack it, haul it, stash it in a business you own.
+[/list]
+
+[h3]and now the money's real[/h3]
+this is the new part, and honestly it's what makes it a game instead of a vending machine.
+[list]
+[*][b]dirty cash[/b] — rug money doesn't touch your wallet. it's a separate stash nobody declared. can't spend it on a legit life, and somebody on the street might take it off you.
+[*][b]wash it[/b] — run it through a real business you own and it comes out clean, minus a cut. now you can spend it. now the taxman can see it. that's the trade.
+[*][b]the IRS[/b] — no cops in this city, just an auditor. sit on a hot pile and he comes for your [i]real[/i] money. he never finds the dirty stash though — that's a different kind of trouble.
+[*]push it too hard and you might get [b]shaken down[/b] for your cash, have a [b]stash robbed[/b] out of your storage, or get [b]jumped[/b] and wake up in a hospital with a bill.
+[/list]
+
+[i]don't want any of this? don't buy a rug. the mod does nothing until your first deal — install it and your normal game is exactly the same.[/i]
+
+[hr][/hr]
+
+[h2]where it's going[/h2]
+the plan's simple: big ambitions already has the systems, i just keep re-skinning them dirty. up the ladder —
+[list]
+[*][b]next: your own dealers.[/b] stop working every corner yourself. put people on it and scale.
+[*][b]then: supply.[/b] import in bulk, lock down your sources.
+[*][b]then: production.[/b] make your own — factories, recipes, the lab.
+[*][b]endgame: kingpin.[/b] a real laundering operation, hold territory, deal with rivals coming for your blocks.
+[/list]
+smaller stuff on the list too: crackdowns that heat up the exact area you've been working instead of the whole city, and laundering that runs through your business's actual books.
+
+[hr][/hr]
+
+[h2]stuff that's janky (i know)[/h2]
+[list]
+[*]there's a "sell" button on the rug box in your hand. it pays nothing AND deletes your stash if you hit it. don't hit it — sell to dealers. hiding that button means going deeper into the game's guts than i want to right now.
+[*]can't stash rugs in your actual apartment yet — the game won't give me storage there. use a business or warehouse you own.
+[/list]
+
+[i]RUGS! is satire and fiction — every product, price, and character is invented and absurd.[/i]

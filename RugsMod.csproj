@@ -7,7 +7,16 @@
     <ImplicitUsings>disable</ImplicitUsings>
     <AssemblyName>RugsMod</AssemblyName>
     <RootNamespace>Rugs</RootNamespace>
-    <Version>1.0.0</Version>
+    <!-- Versioning: public/branded string is <major>.<minor>.<patch> + a fixed .0.4.2.0 (420) postfix.
+         The full string lives in InformationalVersion (free-form); AssemblyVersion/FileVersion must be
+         valid 4-part .NET versions, so they carry the true version 1.5.0 (padded to 1.5.0.0).
+         Only bump the first three segments; the .0.4.2.0 tail never changes. -->
+    <Version>1.5.0</Version>
+    <AssemblyVersion>1.5.0.0</AssemblyVersion>
+    <FileVersion>1.5.0.0</FileVersion>
+    <InformationalVersion>1.5.0.0.4.2.0</InformationalVersion>
+    <!-- Keep the branded string exact (no auto-appended +<git-hash>). -->
+    <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <GenerateDependencyFile>false</GenerateDependencyFile>
     <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
@@ -23,6 +32,12 @@
        Keep their sources out of THIS mod's compile set (the SDK globs **/*.cs by default). -->
   <ItemGroup>
     <Compile Remove="guide/**/*.cs" />
+  </ItemGroup>
+
+  <!-- The curated dealer roster ships INSIDE the DLL so every downloader gets a populated city
+       (the F7 capture file only exists on the author's machine). -->
+  <ItemGroup>
+    <EmbeddedResource Include="Roster\dealers.csv" />
   </ItemGroup>
 
   <ItemGroup>
@@ -45,6 +60,10 @@
     </Reference>
     <Reference Include="BigAmbitions.Characters">
       <HintPath>$(GameManaged)\BigAmbitions.Characters.dll</HintPath><Private>false</Private>
+    </Reference>
+    <!-- Timestamp (used to stamp fabricated laundering "sales") lives here. -->
+    <Reference Include="DayNightCycle">
+      <HintPath>$(GameManaged)\DayNightCycle.dll</HintPath><Private>false</Private>
     </Reference>
     <Reference Include="UnityEngine.CoreModule">
       <HintPath>$(GameManaged)\UnityEngine.CoreModule.dll</HintPath><Private>false</Private>

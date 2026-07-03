@@ -14,6 +14,13 @@ namespace Rugs
     /// </summary>
     internal static class RugItems
     {
+        // Rugs are carried in the VANILLA closed cardboard box: it has a real world prefab, so the
+        // box renders in the player's hands and stores/hauls like normal goods. A custom-named
+        // container has NO prefab in the asset bundles and throws on pickup (empty hands + no HUD).
+        // Contraband is enforced by pricePerUnit=0 (every vanilla sell path pays $0) + type=0 (out of
+        // shops/demand), NOT by a special box.
+        internal const string BagItem = "ba:itemname_closedcardboardbox";
+
         internal static readonly List<string> Registered = new List<string>();
 
         /// <summary>True once the vanilla catalog (our clone donors) is populated.</summary>
@@ -33,7 +40,7 @@ namespace Rugs
                 catch (Exception e) { log.Error("RUGS! failed to register " + r.Key); log.Error(e); }
             }
             ScrubDemandMarket(log);
-            log.Info($"RUGS! items: {Registered.Count}/{RugCatalog.All.Length} registered.");
+            log.Info($"RUGS! items: {Registered.Count} registered.");
         }
 
         internal static void UnregisterAll()
@@ -68,7 +75,7 @@ namespace Rugs
             clone.isADemandedProduct = false;
             ClearTags(clone);
 
-            clone.boxSize = 999999; // drugs carry in near-infinite stacks (one bag holds thousands)
+            clone.boxSize = 100; // ONE box holds 100 units → scarcity: ~100 by hand, ~8×100 on a cart
             SetPrivateFloat(clone, "defaultMarketPrice", r.BasePrice); // vestigial; harmless
             clone.BuildTagCache();
 
