@@ -30,7 +30,7 @@ namespace Rugs
                 message = $"New face? First taste's on me. Here's {StarterAmount} {StarterRug.Display} to get " +
                           "you started — go turn it into money. After this, you pay like everybody else.",
                 ends = false,            // flip to the normal buy/sell panel after the player acknowledges
-                onContinue = GrantAndClaim,
+                onContinue = () => GrantAndClaim(dealer),
             };
         }
 
@@ -38,12 +38,14 @@ namespace Rugs
 
         // Hand over the starter stash and latch the once-ever flag + engage the mod — the freebie IS the
         // player's first deal. RugInventory.GiveRugs routes the rugs to their hands or the cart they're
-        // pushing, and if there's no room it sells them for dirty cash — so the gift always lands somehow.
-        private static void GrantAndClaim()
+        // pushing, and if there's no room it sells them for dirty cash AT THIS CORNER'S street price,
+        // booked to this district — so the gift always lands somehow, priced like everything else here.
+        private static void GrantAndClaim(RugDealerController dealer)
         {
             try
             {
-                RugInventory.GiveRugs(StarterRug, StarterAmount);
+                string hood = dealer != null ? dealer.Neighborhood : null;
+                RugInventory.GiveRugs(StarterRug, StarterAmount, RugMarket.StreetPrice(StarterRug, hood), hood);
                 RugBooks.SetRaw(KClaimed, "1"); // once, ever
                 RugBooks.MarkEngaged();         // the world wakes up — Plug, market, events, heat
             }

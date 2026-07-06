@@ -105,7 +105,7 @@ namespace Rugs
             List<string> ds = RugDealers.Districts;
             if (r == null || ds == null || ds.Count == 0) return false;
             float best = float.MaxValue;
-            foreach (string d in ds) { float p = Street(r, d); if (p < best) { best = p; district = d; } }
+            foreach (string d in ds) { float p = StreetPrice(r, d); if (p < best) { best = p; district = d; } }
             price = best;
             return best < float.MaxValue;
         }
@@ -117,14 +117,16 @@ namespace Rugs
             List<string> ds = RugDealers.Districts;
             if (r == null || ds == null || ds.Count == 0) return false;
             float best = -1f;
-            foreach (string d in ds) { float p = Street(r, d); if (p > best) { best = p; district = d; } }
+            foreach (string d in ds) { float p = StreetPrice(r, d); if (p > best) { best = p; district = d; } }
             price = best;
             return best >= 0f;
         }
 
-        // The price a dealer in this district actually quotes: rolled band × active event multiplier (mirrors
-        // RugTrading.Quote, rounding included, so the wire never disagrees with the corner).
-        private static float Street(RugDef r, string district)
+        /// <summary>THE canonical street quote — what a dealer in this district actually charges/pays: rolled
+        /// band × active event multiplier, rounded (identical to RugTrading.Quote). EVERY player-facing price
+        /// in a known district must come from here (the wire's map, event offers, on-the-spot cash-outs), so no
+        /// two systems can ever disagree about what a corner is worth.</summary>
+        internal static float StreetPrice(RugDef r, string district)
             => Mathf.Round(Price(r, district) * RugEvents.PriceMultiplier(r, district));
 
         private static void Save()

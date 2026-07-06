@@ -112,12 +112,13 @@ namespace Rugs
         /// box in empty hands — mirroring BA's own cargo-target logic (<c>PlayerHelper.IsHoldingItem</c> → the
         /// hand item, else <c>VehicleHelper.GetCurrentVehicle()</c> → the pushed cart; the two are mutually
         /// exclusive). It NEVER overwrites a box that's holding something else. Anything that won't fit is sold on
-        /// the spot for dirty cash so a gift is never lost. FREE gifts cash out at the rug's base price;
-        /// PURCHASED lots must pass <paramref name="cashUnitPrice"/> (what was paid per unit) so the un-carriable
-        /// remainder refunds AT COST — otherwise a discounted street lot cashed at full price is a money pump.
-        /// Returns what happened.
+        /// the spot for dirty cash so a gift is never lost. Callers who KNOW the corner pass
+        /// <paramref name="cashUnitPrice"/> (the local street quote for gifts; the paid-per-unit for purchased
+        /// lots, so the remainder refunds AT COST — cashing a discounted lot at full price is a money pump) and
+        /// <paramref name="cashDistrict"/> (so the dirty cash books to that district). Defaults: base price,
+        /// no district. Returns what happened.
         /// </summary>
-        internal static GiveResult GiveRugs(RugDef r, int amount, float cashUnitPrice = -1f)
+        internal static GiveResult GiveRugs(RugDef r, int amount, float cashUnitPrice = -1f, string cashDistrict = null)
         {
             var res = new GiveResult();
             if (r == null || amount <= 0) return res;
@@ -130,13 +131,13 @@ namespace Rugs
                 if (cart != null)
                 {
                     if (cart.TryToAddToCargo(new CargoInstance(r.Key, amount, 0f, paid: true))) res.carried = amount;
-                    else Cash(r, amount, ref res, cashUnitPrice); // cart full → sell on the spot
+                    else Cash(r, amount, ref res, cashUnitPrice, cashDistrict); // cart full → sell on the spot
                     return res;
                 }
                 int take = Mathf.Min(amount, RugTrading.StackCeiling);
                 PlayerHelper.ItemInstanceInHands = ItemHelper.InitializeItemInHandsWithCargo(new CargoInstance(r.Key, take, 0f, paid: true), RugItems.BagItem);
                 res.carried = take;
-                Cash(r, amount - take, ref res, cashUnitPrice); // any overflow past one box → cash
+                Cash(r, amount - take, ref res, cashUnitPrice, cashDistrict); // any overflow past one box → cash
                 return res;
             }
 
@@ -148,24 +149,24 @@ namespace Rugs
                 if (take > 0 && held.TryToAddToCargo(new CargoInstance(r.Key, take, 0f, paid: true)))
                 {
                     res.carried = take;
-                    Cash(r, amount - take, ref res, cashUnitPrice);
+                    Cash(r, amount - take, ref res, cashUnitPrice, cashDistrict);
                 }
-                else Cash(r, amount, ref res, cashUnitPrice); // box already full
+                else Cash(r, amount, ref res, cashUnitPrice, cashDistrict); // box already full
                 return res;
             }
 
             // Hands hold a different rug, a non-rug box, or any other item → leave it alone; cash the gift.
-            Cash(r, amount, ref res, cashUnitPrice);
+            Cash(r, amount, ref res, cashUnitPrice, cashDistrict);
             return res;
         }
 
-        // Sell un-carriable gifted rugs on the spot → dirty cash (with the rug's heat). Never lose a gift.
-        // unitPrice < 0 → base market price (free gifts); otherwise the caller's price (purchased lots → at cost).
-        private static void Cash(RugDef r, int units, ref GiveResult res, float unitPrice = -1f)
+        // Sell un-carriable gifted rugs on the spot → dirty cash (with the rug's heat), booked to the caller's
+        // district when known. unitPrice < 0 → neutral base price (no-district contexts only).
+        private static void Cash(RugDef r, int units, ref GiveResult res, float unitPrice = -1f, string district = null)
         {
             if (units <= 0) return;
             float value = Mathf.Round((unitPrice >= 0f ? unitPrice : RugMarket.Price(r)) * units);
-            if (value > 0f) RugBooks.AddDirty(value, null, r.HeatWeight);
+            if (value > 0f) RugBooks.AddDirty(value, district, r.HeatWeight);
             res.cashed    += units;
             res.cashValue += value;
         }

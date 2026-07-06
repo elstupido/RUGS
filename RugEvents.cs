@@ -143,7 +143,7 @@ namespace Rugs
                 float chance = Mathf.Clamp01(ArrivalChance + RugBooks.Heat / 300f);
                 if (UnityEngine.Random.value >= chance) return null;
 
-                Arrival a = RollConsequence(log);
+                Arrival a = RollConsequence(log, district);
                 if (a == null || string.IsNullOrEmpty(a.message)) return null;
                 RugBooks.SetRaw(key, nowDay.ToString(CultureInfo.InvariantCulture));
                 return a;
@@ -152,7 +152,8 @@ namespace Rugs
         }
 
         // Pick and resolve one consequence/upside, weighted by how riskily you're playing. Returns its line.
-        private static Arrival RollConsequence(IModLogger log)
+        // The district rides along so money events price and book at THIS corner's street rates.
+        private static Arrival RollConsequence(IModLogger log, string district)
         {
             float heat = RugBooks.Heat;
             var pool = new List<(Hit hit, float w)>
@@ -178,10 +179,10 @@ namespace Rugs
                 case Hit.Robbed:    return ResolveStashRobbed(log);
                 case Hit.Hospital:  return ResolveHospital(log);
                 case Hit.Shakedown: return ResolveShakedown(log);
-                case Hit.FindMoney: return ResolveFindMoney(log);
-                case Hit.Offer:     return RollOffer(log);
+                case Hit.FindMoney: return ResolveFindMoney(log, district);
+                case Hit.Offer:     return RollOffer(log, district);
                 case Hit.Flavor:    return ResolveFlavor(log);
-                default:            return ResolveFindStash(log);
+                default:            return ResolveFindStash(log, district);
             }
         }
 
@@ -335,14 +336,15 @@ namespace Rugs
         }
 
         // Find a stash → free product, routed to hands or the cart you're pushing (or sold on the spot for
-        // dirty cash when there's no room). RugInventory.GiveRugs does all the placement + the cash fallback.
-        private static Arrival ResolveFindStash(IModLogger log)
+        // dirty cash when there's no room). "On the spot" means THIS corner: overflow cashes at the local
+        // street price and books to this district — never the neutral base price.
+        private static Arrival ResolveFindStash(IModLogger log, string district)
         {
             try
             {
                 RugDef r = RugCatalog.All[UnityEngine.Random.Range(0, RugCatalog.All.Length)];
                 int found = UnityEngine.Random.Range(5, 31);
-                RugInventory.GiveResult g = RugInventory.GiveRugs(r, found);
+                RugInventory.GiveResult g = RugInventory.GiveRugs(r, found, RugMarket.StreetPrice(r, district), district);
 
                 log?.Info($"RUGS! event: found {found} {r.Display} (carried {g.carried}, cashed {g.cashed}).");
                 if (g.cashed <= 0)
@@ -355,12 +357,12 @@ namespace Rugs
         }
 
         // Find money → a dropped roll of dirty cash. No dealing exposure (heatWeight 0) — it isn't product.
-        private static Arrival ResolveFindMoney(IModLogger log)
+        private static Arrival ResolveFindMoney(IModLogger log, string district)
         {
             try
             {
                 int amount = UnityEngine.Random.Range(40, 401);
-                RugBooks.AddDirty(amount, null, 0f);
+                RugBooks.AddDirty(amount, district, 0f); // found HERE — book it to this district
                 log?.Info($"RUGS! event: found ${amount} cash.");
                 return $"A fat roll of bills on the sidewalk, nobody in sight. ${amount:N0}, finders keepers.";
             }
@@ -377,21 +379,23 @@ namespace Rugs
         // A street offer (accept/decline). The Drug-Wars "cheap product going fast" beat → a discounted rug lot.
         // (The bigger-coat carry upgrade is deferred: BA's boxSize gates per-box capacity, so it fights the
         // carry-scarcity design rather than slotting in cleanly.)
-        private static Arrival RollOffer(IModLogger log)
+        private static Arrival RollOffer(IModLogger log, string district)
         {
             try
             {
                 RugDef r = RugCatalog.All[UnityEngine.Random.Range(0, RugCatalog.All.Length)];
                 int units = UnityEngine.Random.Range(10, 41);
-                float discount = UnityEngine.Random.Range(0.45f, 0.70f);              // ~30–55% under market
-                float unit = Mathf.Max(1f, Mathf.Round(RugMarket.Price(r) * discount));
+                float discount = UnityEngine.Random.Range(0.45f, 0.70f);              // ~30–55% under THIS corner
+                // Discount off the LOCAL street quote, not the neutral base — "way under the street" must be
+                // TRUE on the street the player is standing on (a crashed district discounts the crash price).
+                float unit = Mathf.Max(1f, Mathf.Round(RugMarket.StreetPrice(r, district) * discount));
                 float cost = unit * units;
                 return new Arrival
                 {
                     message = $"A twitchy guy leans in. \"Gotta move {units} {r.Display} right now — ${unit:N0} a piece, way under the street. You want it?\"",
                     choices = new List<Choice>
                     {
-                        new Choice($"Buy · ${cost:N0}", () => BuyCheapLot(r, units, cost, log)),
+                        new Choice($"Buy · ${cost:N0}", () => BuyCheapLot(r, units, cost, district, log)),
                         new Choice("Pass",              () => (Arrival)"You shake your head. He's already melting back into the crowd."),
                     },
                 };
@@ -401,7 +405,7 @@ namespace Rugs
 
         // Pay for the lot (dirty cash first, then the wallet — mirrors RugTrading.Buy) and route it through the
         // shared gift path (into the held box / pushed cart, overflow flipped for dirty). Never spends past funds.
-        private static Arrival BuyCheapLot(RugDef r, int units, float cost, IModLogger log)
+        private static Arrival BuyCheapLot(RugDef r, int units, float cost, string district, IModLogger log)
         {
             try
             {
@@ -414,7 +418,7 @@ namespace Rugs
                 RugBooks.MarkEngaged();
                 // Overflow the player can't carry refunds AT the lot's unit price (cost), never at market —
                 // cashing a discounted lot at full price was a guaranteed in-place money pump.
-                RugInventory.GiveResult g = RugInventory.GiveRugs(r, units, cost / units);
+                RugInventory.GiveResult g = RugInventory.GiveRugs(r, units, cost / units, district);
                 log?.Info($"RUGS! offer: bought {units} {r.Display} for ${cost:N0} (carried {g.carried}, cashed {g.cashed}).");
                 if (g.carried > 0 && g.cashed > 0)
                     return $"Done. {g.carried:N0} {r.Display} in the bag; the rest wouldn't fit — he takes it back at cost (${g.cashValue:N0} to your dirty roll).";
