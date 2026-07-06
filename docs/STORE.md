@@ -62,6 +62,9 @@ The mod stays dormant until your first deal. Never deal with a dealer and your s
 [h2]What's new — 1.5.1.4.2.0[/h2]
 [list]
 [*][b]Big-fleet UI fix.[/b] The laundry, dealer, Grand Ledger, and deal screens now scroll — a 30-business empire no longer pushes the buttons off the screen. (Thanks, neriku!)
+[*][b]The wire tells the truth.[/b] The Plug's cheap-in/hot-in map now uses the same prices the dealers actually quote — so when a rug is flooding a district, that district IS the cheap one on the map.
+[*][b]One price per corner, everywhere.[/b] Street offers now discount the local corner's real price (a "steal" can never cost more than the dealer next to you), and found stashes you can't carry sell at the spot's actual rate.
+[*][b]Small stuff.[/b] Tapped-out laundry rows no longer run their text under the buttons; corner cash now books to the district it was earned in.
 [/list]
 
 [hr][/hr]
