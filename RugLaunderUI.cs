@@ -105,12 +105,13 @@ namespace Rugs
                     float cap = RugLaunder.CapRemaining(r);
                     string name = string.IsNullOrWhiteSpace(r.BusinessName) ? "(unnamed)" : r.BusinessName;
                     if (name.Length > 22) name = name.Substring(0, 21) + "…"; // keep it inside its column
-                    // Boosted rows use a COMPACT form: the sub column is ~150px and overflow renders under the
-                    // buttons, so the factory tag replaces filler words instead of extending the line.
+                    // The sub column is ~150px and overflow renders UNDER the buttons (seen live in neriku's
+                    // screenshot), so every variant stays short. The quick-wash hint lives in the QUICK WASH
+                    // section at the top of this same panel — no need to repeat it per row.
                     float boost = RugFactoryBoost.For(r);
                     string sub = boost >= 0.005f
                         ? (cap >= 1f ? $"wash ${cap:N0}/day · fed +{boost * 100f:0}%" : $"tapped out · fed +{boost * 100f:0}%")
-                        : (cap >= 1f ? $"can wash ${cap:N0} today" : "tapped out today — use quick wash");
+                        : (cap >= 1f ? $"can wash ${cap:N0} today" : "tapped out today");
                     Transform row = Row(panel, name, sub);
                     NewButton(row, "$1k",  Gold, 44f, () => DoWash(r, 1000f));
                     NewButton(row, "$10k", Gold, 50f, () => DoWash(r, 10000f));
