@@ -95,29 +95,37 @@ namespace Rugs
             return Mathf.Round(r.BasePrice * Random.Range(lo, hi));
         }
 
-        /// <summary>Cheapest district to BUY this rug right now (base band price, pre-event). False if no districts.</summary>
+        /// <summary>Cheapest district to BUY this rug right now, at the EFFECTIVE street price — band × any
+        /// active event swing, exactly what a dealer there quotes (RugTrading.Quote). Keeping the event in the
+        /// math keeps the wire's map consistent with its own "word on the street" (a flooded district must
+        /// SHOW as the cheap one). False if no districts.</summary>
         internal static bool BestBuy(RugDef r, out string district, out float price)
         {
             district = ""; price = 0f;
             List<string> ds = RugDealers.Districts;
             if (r == null || ds == null || ds.Count == 0) return false;
             float best = float.MaxValue;
-            foreach (string d in ds) { float p = Price(r, d); if (p < best) { best = p; district = d; } }
+            foreach (string d in ds) { float p = Street(r, d); if (p < best) { best = p; district = d; } }
             price = best;
             return best < float.MaxValue;
         }
 
-        /// <summary>Dearest district to SELL this rug right now (base band price, pre-event).</summary>
+        /// <summary>Dearest district to SELL this rug right now, at the EFFECTIVE street price (see BestBuy).</summary>
         internal static bool BestSell(RugDef r, out string district, out float price)
         {
             district = ""; price = 0f;
             List<string> ds = RugDealers.Districts;
             if (r == null || ds == null || ds.Count == 0) return false;
             float best = -1f;
-            foreach (string d in ds) { float p = Price(r, d); if (p > best) { best = p; district = d; } }
+            foreach (string d in ds) { float p = Street(r, d); if (p > best) { best = p; district = d; } }
             price = best;
             return best >= 0f;
         }
+
+        // The price a dealer in this district actually quotes: rolled band × active event multiplier (mirrors
+        // RugTrading.Quote, rounding included, so the wire never disagrees with the corner).
+        private static float Street(RugDef r, string district)
+            => Mathf.Round(Price(r, district) * RugEvents.PriceMultiplier(r, district));
 
         private static void Save()
         {
