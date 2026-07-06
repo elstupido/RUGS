@@ -62,26 +62,15 @@ namespace Rugs
                 bdBtn.onClick.AddListener(RequestClose);
 
                 Image panel = NewImage(_root.transform, new Color(0.08f, 0.07f, 0.06f, 0.98f));
-                RectTransform prt = panel.rectTransform;
-                prt.anchorMin = prt.anchorMax = prt.pivot = new Vector2(0.5f, 0.5f);
-                prt.sizeDelta = new Vector2(540f, 100f);
-                var vlg = panel.gameObject.AddComponent<VerticalLayoutGroup>();
-                vlg.padding = new RectOffset(16, 16, 12, 14);
-                vlg.spacing = 5;
-                vlg.childAlignment = TextAnchor.UpperCenter;
-                vlg.childControlWidth = vlg.childControlHeight = true;
-                vlg.childForceExpandWidth = true; vlg.childForceExpandHeight = false;
-                var fit = panel.gameObject.AddComponent<ContentSizeFitter>();
-                fit.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
-                fit.horizontalFit = ContentSizeFitter.FitMode.Unconstrained;
-
-                _panel = panel.transform;
+                // Scrollable, height-capped (shared fix): content must never push its buttons off-screen.
+                _panel = RugUi.MakeScrollable(panel, 540f, new RectOffset(16, 16, 12, 14), 5f);
                 // The first dealer the player ever opens fronts a free starter stash (T0.1); after that, the
                 // Drug-Wars "arrival" beat may trigger an event. Either way, announce it first, then let the
                 // player continue to the buy/sell panel.
                 RugEvents.Arrival arrival = RugFreebie.TryFirstFree(_dealer) ?? RugEvents.RollDealerArrival(_dealer.Neighborhood);
                 if (arrival != null) BuildArrival(arrival);
                 else Build(_panel);
+                RugUi.Fit(_panel);
                 BlockInput(true);
             }
             catch (Exception e)
@@ -130,6 +119,7 @@ namespace Rugs
             for (int i = _panel.childCount - 1; i >= 0; i--) UnityEngine.Object.Destroy(_panel.GetChild(i).gameObject);
             if (outcome == null) { ContinueToDeal(); return; }
             BuildArrival(outcome);
+            RugUi.Fit(_panel);
         }
 
         // Acknowledge the arrival event: run any deferred effect (e.g. the hospital teleport), then either
@@ -144,6 +134,7 @@ namespace Rugs
             for (int i = _panel.childCount - 1; i >= 0; i--) UnityEngine.Object.Destroy(_panel.GetChild(i).gameObject);
             _statusText = "";
             Build(_panel);
+            RugUi.Fit(_panel);
         }
 
         private static readonly Color Green = new Color(0.20f, 0.45f, 0.22f);
@@ -270,6 +261,7 @@ namespace Rugs
             for (int i = _panel.childCount - 1; i >= 0; i--) UnityEngine.Object.Destroy(_panel.GetChild(i).gameObject);
             _statusText = "midnight — the corners re-rolled their prices";
             Build(_panel);
+            RugUi.Fit(_panel);
         }
 
         private static int _builtDay = -1;

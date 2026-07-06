@@ -51,21 +51,10 @@ namespace Rugs
                 bdBtn.onClick.AddListener(Close);
 
                 Image panel = NewImage(_root.transform, new Color(0.08f, 0.07f, 0.06f, 0.98f));
-                RectTransform prt = panel.rectTransform;
-                prt.anchorMin = prt.anchorMax = prt.pivot = new Vector2(0.5f, 0.5f);
-                prt.sizeDelta = new Vector2(640f, 100f);
-                var vlg = panel.gameObject.AddComponent<VerticalLayoutGroup>();
-                vlg.padding = new RectOffset(16, 16, 12, 14);
-                vlg.spacing = 5;
-                vlg.childAlignment = TextAnchor.UpperCenter;
-                vlg.childControlWidth = vlg.childControlHeight = true;
-                vlg.childForceExpandWidth = true; vlg.childForceExpandHeight = false;
-                var fit = panel.gameObject.AddComponent<ContentSizeFitter>();
-                fit.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
-                fit.horizontalFit = ContentSizeFitter.FitMode.Unconstrained;
-
-                _panel = panel.transform;
+                // Scrollable, height-capped: a 30-business fleet must never push the buttons off-screen.
+                _panel = RugUi.MakeScrollable(panel, 640f, new RectOffset(16, 16, 12, 14), 5f);
                 Build(_panel);
+                RugUi.Fit(_panel);
                 BlockInput(true);
             }
             catch (Exception e)
@@ -161,6 +150,7 @@ namespace Rugs
             for (int i = _panel.childCount - 1; i >= 0; i--) UnityEngine.Object.Destroy(_panel.GetChild(i).gameObject);
             _status = null;
             Build(_panel);
+            RugUi.Fit(_panel);
         }
 
         private static void SetStatus(string s) { _statusText = s; if (_status != null) _status.text = s; }

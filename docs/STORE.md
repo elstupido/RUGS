@@ -59,6 +59,13 @@ The mod stays dormant until your first deal. Never deal with a dealer and your s
 
 [hr][/hr]
 
+[h2]What's new — 1.5.1.4.2.0[/h2]
+[list]
+[*][b]Big-fleet UI fix.[/b] The laundry, dealer, Grand Ledger, and deal screens now scroll — a 30-business empire no longer pushes the buttons off the screen. (Thanks, neriku!)
+[/list]
+
+[hr][/hr]
+
 [h2]What's new — 1.5.0.4.2.0[/h2]
 [list]
 [*][b]Drug-Wars pricing.[/b] Every district rolls its own price on every rug, every day — wide bands, so the same rug can be cheap on one block and triple across town. Buy price equals sell price: no dealer margin, no flipping in place. The profit is in the hauling, and the Plug's wire now tells you where everything is cheap and where it's hot.

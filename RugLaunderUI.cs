@@ -58,20 +58,10 @@ namespace Rugs
                 bdBtn.onClick.AddListener(Close);
 
                 Image panel = NewImage(_root.transform, new Color(0.08f, 0.07f, 0.06f, 0.98f));
-                RectTransform prt = panel.rectTransform;
-                prt.anchorMin = prt.anchorMax = prt.pivot = new Vector2(0.5f, 0.5f);
-                prt.sizeDelta = new Vector2(640f, 100f);
-                var vlg = panel.gameObject.AddComponent<VerticalLayoutGroup>();
-                vlg.padding = new RectOffset(16, 16, 12, 14);
-                vlg.spacing = 5;
-                vlg.childAlignment = TextAnchor.UpperCenter;
-                vlg.childControlWidth = vlg.childControlHeight = true;
-                vlg.childForceExpandWidth = true; vlg.childForceExpandHeight = false;
-                var fit = panel.gameObject.AddComponent<ContentSizeFitter>();
-                fit.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
-                fit.horizontalFit = ContentSizeFitter.FitMode.Unconstrained;
-
-                Build(panel.transform);
+                // Scrollable, height-capped: a 30-business fleet must never push the buttons off-screen.
+                Transform content = RugUi.MakeScrollable(panel, 640f, new RectOffset(16, 16, 12, 14), 5f);
+                Build(content);
+                RugUi.Fit(content);
                 BlockInput(true);
             }
             catch (Exception e)

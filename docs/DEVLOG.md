@@ -5,6 +5,23 @@ Versioning: `<major>.<minor>.<patch>` plus a fixed `.0.4.2.0` tail (e.g. `1.3.0.
 
 ---
 
+## 2026-07-05 — Hotfix: scrollable panels for big fleets → v1.5.1
+
+**First launch-week bug report** (neriku, Discord, with a screenshot): with a big fleet the laundry panel
+grew TALLER THAN THE SCREEN — the wash buttons and the GL door sat unreachable below the bottom edge. Every
+RUGS panel sized itself to its content with no scrolling; never tested at 30 businesses (the GL's whole
+audience).
+
+**Fix:** new shared `RugUi` helper — every panel (laundry, dealers, Grand Ledger, deal) is now a
+**height-capped scroll container** (940px on the 1080 reference canvas): short content hugs exactly as
+before, long content scrolls (mouse wheel / drag) instead of growing off-screen. All rebuild paths re-fit.
+
+Also filed from the same conversation: "too OP with a lot of businesses" (~$1.5M/day from rider shops;
+factories make it easy). Parked as a DESIGN question — scale is the on-ramp's point, but whether the
+force-multiplier is the right factory approach (and at what rate) gets a proper think, not a hotfix.
+
+---
+
 ## 2026-07-03 — The endgame drop: Drug-Wars pricing + the factory flywheel + the GL → v1.5.0
 
 **Released:** v1.5.0 to the Steam Workshop — and it hit the FRONT PAGE of Big Ambitions mods on launch day.

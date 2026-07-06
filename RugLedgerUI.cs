@@ -68,21 +68,10 @@ namespace Rugs
                 bdBtn.onClick.AddListener(Close);
 
                 Image panel = NewImage(_root.transform, new Color(0.05f, 0.07f, 0.05f, 0.98f)); // CRT green-black
-                RectTransform prt = panel.rectTransform;
-                prt.anchorMin = prt.anchorMax = prt.pivot = new Vector2(0.5f, 0.5f);
-                prt.sizeDelta = new Vector2(700f, 100f);
-                var vlg = panel.gameObject.AddComponent<VerticalLayoutGroup>();
-                vlg.padding = new RectOffset(18, 18, 12, 14);
-                vlg.spacing = 4;
-                vlg.childAlignment = TextAnchor.UpperCenter;
-                vlg.childControlWidth = vlg.childControlHeight = true;
-                vlg.childForceExpandWidth = true; vlg.childForceExpandHeight = false;
-                var fit = panel.gameObject.AddComponent<ContentSizeFitter>();
-                fit.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
-                fit.horizontalFit = ContentSizeFitter.FitMode.Unconstrained;
-
-                _panel = panel.transform;
+                // Scrollable, height-capped: the whole point of the GL is BIG fleets — it must never outgrow the screen.
+                _panel = RugUi.MakeScrollable(panel, 700f, new RectOffset(18, 18, 12, 14), 4f);
                 Build(_panel);
+                RugUi.Fit(_panel);
                 BlockInput(true);
             }
             catch (Exception e)
@@ -237,6 +226,7 @@ namespace Rugs
             for (int i = _panel.childCount - 1; i >= 0; i--) UnityEngine.Object.Destroy(_panel.GetChild(i).gameObject);
             _status = null;
             Build(_panel);
+            RugUi.Fit(_panel);
         }
 
         internal static void Close()
