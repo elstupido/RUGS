@@ -59,6 +59,37 @@ namespace Rugs
             scroll.vertical = true;
             scroll.movementType = ScrollRect.MovementType.Clamped;
             scroll.scrollSensitivity = 30f;
+
+            // A visible scrollbar — the AFFORDANCE. Wheel-only scrolling is invisible; players stared at a
+            // clipped list with no cue that more rows existed below. Slim phosphor-green thumb on a faint
+            // track, overlaid on the right edge; auto-hides whenever the content fits (small fleets see
+            // exactly what they always saw).
+            var sbGo = new GameObject("scrollbar", typeof(RectTransform));
+            sbGo.transform.SetParent(panel.transform, false);
+            var srt = (RectTransform)sbGo.transform;
+            srt.anchorMin = new Vector2(1f, 0f);
+            srt.anchorMax = new Vector2(1f, 1f);
+            srt.pivot = new Vector2(1f, 0.5f);
+            srt.offsetMin = new Vector2(-10f, 6f);  // 8px wide …
+            srt.offsetMax = new Vector2(-2f, -6f);  // … inset 2px from the edge, 6px top/bottom
+            var track = sbGo.AddComponent<Image>();
+            track.color = new Color(1f, 1f, 1f, 0.07f);
+
+            var handleGo = new GameObject("handle", typeof(RectTransform));
+            handleGo.transform.SetParent(sbGo.transform, false);
+            var hrt = (RectTransform)handleGo.transform;
+            hrt.anchorMin = Vector2.zero; hrt.anchorMax = Vector2.one;
+            hrt.offsetMin = Vector2.zero; hrt.offsetMax = Vector2.zero;
+            var handleImg = handleGo.AddComponent<Image>();
+            handleImg.color = RugTheme.GreenDim; // terminal-green thumb, draggable
+
+            var sb = sbGo.AddComponent<Scrollbar>();
+            sb.direction = Scrollbar.Direction.BottomToTop;
+            sb.targetGraphic = handleImg;
+            sb.handleRect = hrt;
+
+            scroll.verticalScrollbar = sb;
+            scroll.verticalScrollbarVisibility = ScrollRect.ScrollbarVisibility.AutoHide;
             return crt;
         }
 
