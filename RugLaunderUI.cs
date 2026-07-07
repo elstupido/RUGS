@@ -134,8 +134,9 @@ namespace Rugs
             _status = NewText(panel, _statusText, 13, FontStyle.Italic, new Color(0.9f, 0.82f, 0.5f));
             _status.alignment = TextAnchor.MiddleCenter;
 
+            // The GL is THE ops console — businesses, roles, riders (hire/collect/cut), totals, night crew.
+            // (The old separate "Manage Dealers" panel was a strict subset of it and was retired in 1.5.2.)
             NewButton(panel, "The GL  (Grand Ledger)  →", new Color(0.18f, 0.30f, 0.34f), 0f, () => { Close(); RugLedgerUI.Open(); });
-            NewButton(panel, "Manage Dealers  →", new Color(0.22f, 0.34f, 0.22f), 0f, () => { Close(); RugDealersUI.Open(); });
             NewButton(panel, "Close  (Esc)", new Color(0.30f, 0.25f, 0.18f), 0f, Close);
         }
 

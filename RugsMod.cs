@@ -110,7 +110,6 @@ namespace Rugs
             // hospital) can't be dodged by mashing Esc; its own buttons are the only way through.
             if (RugDealUI.IsOpen && Input.GetKeyDown(KeyCode.Escape)) RugDealUI.RequestClose();
             if (RugLaunderUI.IsOpen && Input.GetKeyDown(KeyCode.Escape)) RugLaunderUI.Close();
-            if (RugDealersUI.IsOpen && Input.GetKeyDown(KeyCode.Escape)) RugDealersUI.Close();
             if (RugLedgerUI.IsOpen && Input.GetKeyDown(KeyCode.Escape)) RugLedgerUI.Close();
 
             // Authoring/debug hotkeys — DEV builds only (RugsConfig.Dev=false strips them for release).
