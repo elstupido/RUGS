@@ -97,8 +97,9 @@ namespace Rugs
         {
             if (cap >= 1f)
                 return boost >= 0.005f ? $"wash ${cap:N0}/day · fed +{boost * 100f:0}%" : $"can wash ${cap:N0} today";
-            if (RugLaunder.WashedToday(r) >= 1f) return "washed out today · back at midnight";
-            return "no real sales to hide behind yet";
+            float today = RugLaunder.WashedToday(r);
+            if (today >= 1f) return $"washed ${today:N0} today";  // room's spent — show what moved through
+            return "no sales history yet";
         }
 
         private static void Section(Transform panel, string label)
