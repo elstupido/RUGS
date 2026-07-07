@@ -108,6 +108,13 @@ namespace Rugs
                         NewButton(row, "Hire dealer", Green, 92f, () => DoAttach(r));
                     }
                 }
+                // DEV scroll stress: synthetic rows (F10 cycles the count; always 0 in release builds).
+                for (int i = 0; i < RugsConfig.UiStressRows; i++)
+                {
+                    Transform srow = Row(panel, $"STRESS BIZ #{i + 1:00}", "~$12,345/day cover");
+                    NewButton(srow, "Hire dealer", Green, 92f, () => { });
+                }
+
                 NewText(panel, "a dealer mints dirty cash daily from the front's real takings · collect it, then launder it elsewhere",
                         11, FontStyle.Italic, new Color(0.6f, 0.6f, 0.6f)).alignment = TextAnchor.MiddleCenter;
             }

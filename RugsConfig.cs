@@ -8,5 +8,10 @@ namespace Rugs
     internal static class RugsConfig
     {
         internal const bool Dev = false;
+
+        // DEV-only: synthetic rows appended to the list panels (laundry / dealers / GL) so the scroll fix can
+        // be stress-tested without owning 30 businesses. F10 cycles 0 → 30 → 60 in Dev builds; in release the
+        // toggle is stripped with the other hotkeys, so this stays 0 and the row loops are dead code.
+        internal static int UiStressRows;
     }
 }

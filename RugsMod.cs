@@ -121,6 +121,11 @@ namespace Rugs
                 if (Input.GetKeyDown(KeyCode.F6)) RugSpotCapture.Clear(_log);     // wipe the spots file
                 if (Input.GetKeyDown(KeyCode.F8)) SpawnDealerAtPlayer();          // quick test dealer
                 if (Input.GetKeyDown(KeyCode.F9)) DebugLaunder();                 // launder all dirty cash
+                if (Input.GetKeyDown(KeyCode.F10)) // scroll stress test: fake rows in the list panels
+                {
+                    RugsConfig.UiStressRows = (RugsConfig.UiStressRows + 30) % 90;
+                    _log.Info($"RUGS! UI stress rows = {RugsConfig.UiStressRows} — open the laundry / dealers / GL panel.");
+                }
             }
         }
 

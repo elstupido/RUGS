@@ -144,6 +144,14 @@ namespace Rugs
                     }
                 }
 
+                // DEV scroll stress: synthetic rows (F10 cycles the count; always 0 in release builds).
+                for (int i = 0; i < RugsConfig.UiStressRows; i++)
+                {
+                    Transform srow = LedgerRow(panel,
+                        $"STRESS BIZ #{i + 1:00}".PadRight(19) + "FRONT".PadRight(8) + "—".PadLeft(9) + "$12,345".PadLeft(12) + "—".PadLeft(7));
+                    NewButton(srow, "+RIDER", Green, 66f, () => { });
+                }
+
                 // Totals rule + row, then the balance verdict — THE endgame number.
                 NewText(panel,
                         new string('─', 56) + "\n" +

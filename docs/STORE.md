@@ -80,8 +80,8 @@ The mod stays dormant until your first deal. Never deal with a dealer and your s
 
 [hr][/hr]
 
-[quote][b]Disclaimer:[/b] RUGS! is satire and fiction. Every product, price, and character is invented and absurd — no real substances, no real-world anything.[/quote]
+[quote][b]Disclaimer:[/b] RUGS! is satire and fiction. Every product, price, and character is invented and absurd — no real substances, no real-world anything.
 
 Open-source under GPL-3.0. Built code-only, no Unity Editor — clones vanilla assets at runtime.
 
-Some corner-flavor one-liners come from [i]dopewars[/i] (the open-source Drug Wars by Ben Webb and contributors), reused under the GNU GPL with thanks. Software should be free. Free as in freedom, not free as in free dr... *ahem!* rugs. (but no charge either way)
+Some corner-flavor one-liners come from [i]dopewars[/i] (the open-source Drug Wars by Ben Webb and contributors), reused under the GNU GPL with thanks. Software should be free. Free as in freedom, not free as in free dr... *ahem!* rugs. (but no charge either way)[/quote]
