@@ -59,6 +59,15 @@ The mod stays dormant until your first deal. Never deal with a dealer and your s
 
 [hr][/hr]
 
+[h2]What's new — 1.5.2.4.2.0[/h2]
+[list]
+[*][b]Scrollbars you can see.[/b] Scrollable screens now show a slim terminal-green scrollbar when there's more below the fold — no more guessing whether a big list scrolls. It hides itself when everything fits.
+[*][b]One ops console.[/b] The separate Manage Dealers screen is retired — everything it did (hire, collect, cut) lives in the Grand Ledger, alongside the books, the totals, and the night crew.
+[*][b]The night crew leaves receipts.[/b] The GL now shows the last automatic wash run — how much moved, through how many fronts — so you always know your money's working while you sleep.
+[/list]
+
+[hr][/hr]
+
 [h2]What's new — 1.5.1.4.2.0[/h2]
 [list]
 [*][b]Big-fleet UI fix.[/b] The laundry, dealer, Grand Ledger, and deal screens now scroll — a 30-business empire no longer pushes the buttons off the screen. (Thanks, neriku!)

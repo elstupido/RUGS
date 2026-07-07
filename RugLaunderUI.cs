@@ -119,8 +119,8 @@ namespace Rugs
                 }
             }
 
-            // DEV scroll stress: synthetic rows (F10 cycles the count; always 0 in release builds).
-            for (int i = 0; i < RugsConfig.UiStressRows; i++)
+            // DEV scroll stress: synthetic rows (F10 cycles the count; the const gate strips this from release).
+            for (int i = 0; RugsConfig.Dev && i < RugsConfig.UiStressRows; i++)
             {
                 Transform srow = Row(panel, $"STRESS BIZ #{i + 1:00}", "can wash $12,345 today");
                 NewButton(srow, "$1k",  Gold, 44f, () => { });

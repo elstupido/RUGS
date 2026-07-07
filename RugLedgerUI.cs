@@ -144,8 +144,8 @@ namespace Rugs
                     }
                 }
 
-                // DEV scroll stress: synthetic rows (F10 cycles the count; always 0 in release builds).
-                for (int i = 0; i < RugsConfig.UiStressRows; i++)
+                // DEV scroll stress: synthetic rows (F10 cycles the count; the const gate strips this from release).
+                for (int i = 0; RugsConfig.Dev && i < RugsConfig.UiStressRows; i++)
                 {
                     Transform srow = LedgerRow(panel,
                         $"STRESS BIZ #{i + 1:00}".PadRight(19) + "FRONT".PadRight(8) + "—".PadLeft(9) + "$12,345".PadLeft(12) + "—".PadLeft(7));

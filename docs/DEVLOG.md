@@ -5,6 +5,30 @@ Versioning: `<major>.<minor>.<patch>` plus a fixed `.0.4.2.0` tail (e.g. `1.3.0.
 
 ---
 
+## 2026-07-07 — Scrollbars, one console, receipts → v1.5.2
+
+Launch-week polish, driven by watching real users hit real walls.
+
+- **Visible scrollbars.** The 1.5.1 scroll fix WORKED — but invisibly: wheel-only scrolling gave no cue that
+  more rows existed below the fold (the boss only knew to try because we were testing it). Every scrollable
+  panel now shows a slim terminal-green scrollbar, draggable, auto-hidden when content fits.
+- **Manage Dealers retired.** It was a strict subset of the Grand Ledger (hire/collect/cut with none of the
+  books), and every panel-wide fix had to be applied twice. One ops console now; −284 lines.
+- **Night-crew receipts.** The automation was unverifiable — fires only at day rollover, waits a night after
+  being enabled, and left no trace beyond one Plug text. Every run now writes a receipt the GL displays
+  ("last run: washed $X through N fronts" / "nothing needed washing"), even when it did nothing.
+- **Dev test harness** (stripped from release, verified byte-level): F10 injects synthetic rows to stress the
+  scroll UI without a 30-business save; F11 forces the night-crew sweep and dumps rider holdings.
+
+**Launch-week ops lesson, logged for posterity:** the "1.5.1 didn't fix it" scare was a STALE-SESSION mirage —
+Steam's API showed the Workshop updated 3 minutes after the final build; the complaining screenshots contained
+strings that no longer exist in the fixed DLL. The mod loads at game START, so players (and the author, twice)
+kept running old code after the file on disk was already new. Diagnosis discipline: check the artifact
+(byte-level string probes), check the channel (Workshop time_updated), check what actually LOADED (Player.log's
+ready-line) — before assuming the code is wrong.
+
+---
+
 ## 2026-07-05 — Hotfix: scrollable panels for big fleets → v1.5.1
 
 **First launch-week bug report** (neriku, Discord, with a screenshot): with a big fleet the laundry panel

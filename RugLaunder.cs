@@ -276,6 +276,7 @@ namespace Rugs
         /// write the same receipt the nightly run does — instant verification without sleeping to midnight.</summary>
         internal static void DevForceNightCrew(IModLogger log)
         {
+            if (!RugsConfig.Dev) return; // const-gate: the body (and its strings) strip out of release builds
             (float washed, int through) = RunNightCrew(log);
             WriteReport(CurrentDay(), washed, through);
             log?.Info($"RUGS! [dev] night crew forced: washed ${washed:N0} through {through} front(s); dirty now ${RugBooks.Dirty:N0}.");
