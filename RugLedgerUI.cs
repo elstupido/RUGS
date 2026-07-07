@@ -85,7 +85,7 @@ namespace Rugs
         {
             NewText(panel, RugTheme.Banner("GRAND LEDGER"), 18, FontStyle.Bold, RugTheme.GreenBright)
                 .alignment = TextAnchor.MiddleCenter;
-            NewText(panel, "RUGSOFT™ FISCAL TERMINAL — books on the left, levers on the right", 11, FontStyle.Italic, RugTheme.GreenDim)
+            NewText(panel, $"RUGSOFT™ FISCAL TERMINAL v{RugsConfig.Version} — books on the left, levers on the right", 11, FontStyle.Italic, RugTheme.GreenDim)
                 .alignment = TextAnchor.MiddleCenter;
             NewText(panel, "C:\\RUGS> RUN GL.EXE /MANAGE", 12, FontStyle.Normal, RugTheme.GreenDim)
                 .alignment = TextAnchor.MiddleLeft;

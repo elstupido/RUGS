@@ -63,8 +63,8 @@ namespace Rugs
                 RugPlug.Reset();                     // re-establish the contact for this save
                 RugMachine.Init(_log);               // home laundry-machine appliance (spawns when you're home)
                 _log.Info(RugsConfig.Dev
-                    ? "RUGS! ready (DEV).  \\ = cycle dealer look | F6 = clear spots | F7 = capture spot | F8 = test dealer | F9 = [debug] launder all."
-                    : "RUGS! ready.");
+                    ? "RUGS! ready (DEV) v" + RugsConfig.Version + ".  \\ = cycle dealer look | F6 = clear spots | F7 = capture spot | F8 = test dealer | F9 = [debug] launder all | F10 = stress rows | F11 = force night crew."
+                    : "RUGS! ready. v" + RugsConfig.Version);
             }
 
             // Legacy save cleanup: convert a pre-fix "rugstash" ghost box held in hand into a vanilla

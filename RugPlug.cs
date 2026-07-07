@@ -137,6 +137,7 @@ namespace Rugs
 
             string band = RugHeat.Band(RugBooks.Heat);
             sb.Append("\nHeat: ").Append(band).Append(band == "None" ? "." : " — the taxman's sniffing. Don't sit on a big pile.");
+            sb.Append("\n\n— RUGS! v").Append(RugsConfig.Version); // support: every player can read their build off the daily wire
             return sb.ToString();
         }
 
