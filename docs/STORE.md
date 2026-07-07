@@ -64,6 +64,7 @@ The mod stays dormant until your first deal. Never deal with a dealer and your s
 [*][b]Scrollbars you can see.[/b] Scrollable screens now show a slim terminal-green scrollbar when there's more below the fold — no more guessing whether a big list scrolls. It hides itself when everything fits.
 [*][b]One ops console.[/b] The separate Manage Dealers screen is retired — everything it did (hire, collect, cut) lives in the Grand Ledger, alongside the books, the totals, and the night crew.
 [*][b]The night crew leaves receipts.[/b] The GL now shows the last automatic wash run — how much moved, through how many fronts — so you always know your money's working while you sleep.
+[*][b]Version on screen.[/b] The laundry screen, the Grand Ledger, and the bottom of the Plug's wire now show your build (this one is 1.5.2.4.2.0) — if yours doesn't, restart the game to pick up the update. Plus a word of wisdom from one of the dealers, every time you open the laundry.
 [/list]
 
 [hr][/hr]
