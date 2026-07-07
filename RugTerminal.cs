@@ -73,6 +73,7 @@ namespace Rugs
 
                 Image panel = RugUi.NewImage(_root.transform, new Color(0.05f, 0.07f, 0.05f, 0.98f)); // CRT green-black
                 _content = RugUi.MakeScrollable(panel, 700f, new RectOffset(18, 18, 12, 14), 4f);
+                RugCrt.AddGlass(panel); // scanlines + vignette + flicker over the whole tube (last child → on top)
 
                 _openedAt = Time.unscaledTime;
                 _screen = Screen.Boot;
