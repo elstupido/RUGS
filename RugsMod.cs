@@ -123,7 +123,14 @@ namespace Rugs
                 if (Input.GetKeyDown(KeyCode.F10)) // scroll stress test: fake rows in the list panels
                 {
                     RugsConfig.UiStressRows = (RugsConfig.UiStressRows + 30) % 90;
-                    _log.Info($"RUGS! UI stress rows = {RugsConfig.UiStressRows} — open the laundry / dealers / GL panel.");
+                    _log.Info($"RUGS! UI stress rows = {RugsConfig.UiStressRows} — open the laundry / GL panel.");
+                }
+                if (Input.GetKeyDown(KeyCode.F11)) // automation test: force the night crew + dump rider holdings
+                {
+                    RugLaunder.DevForceNightCrew(_log);
+                    foreach (BuildingRegistration reg in RugLaunder.AllOwned())
+                        if (RugSidecars.HasSidecar(RugLaunder.Key(reg)))
+                            _log.Info($"RUGS! [dev] rider @ {reg.BusinessName}: holding ${RugSidecars.Held(reg):N0}.");
                 }
             }
         }

@@ -194,11 +194,14 @@ namespace Rugs
             if (on) RugBooks.SetRaw(KAutoWashDay, CurrentDay().ToString(CultureInfo.InvariantCulture));
         }
 
+        private const string KAutoWashReport = "rugs:autoWashReport"; // "day|washed|fronts" — the GL's receipt
+
         /// <summary>
         /// The night crew: once per in-game day, wash the dirty stash through every front with safe room —
         /// biggest room first — until the stash runs dry or every front is tapped. Exactly the same rules as
         /// pressing the button yourself (plausibility caps, real products, clears overnight, taxed): this is
-        /// automation for a 30-business fleet, not a better rate. Unlocked at 5+ businesses.
+        /// automation for a 30-business fleet, not a better rate. Unlocked at 5+ businesses. Every run leaves
+        /// a RECEIPT the GL shows (even a "nothing needed washing" run), so the automation is verifiable.
         /// </summary>
         internal static void OnDayChanged(int day, IModLogger log)
         {
@@ -207,9 +210,22 @@ namespace Rugs
             if (int.TryParse(raw, NumberStyles.Integer, CultureInfo.InvariantCulture, out int last) && day <= last) return;
             RugBooks.SetRaw(KAutoWashDay, day.ToString(CultureInfo.InvariantCulture));
             if (raw == null) return; // first sighting on an old save: stamp only, wash from tomorrow
-            if (RugBooks.Dirty < MinWash) return;
 
-            // Snapshot each front's room, biggest first, then run the stash down the list.
+            (float washed, int through) = RunNightCrew(log);
+            WriteReport(day, washed, through);
+            if (washed >= 1f)
+            {
+                log?.Info($"RUGS! night crew washed ${washed:N0} through {through} front(s).");
+                RugPlug.Notify($"Night crew ran ${washed:N0} through {through} front{(through == 1 ? "" : "s")} — clean by morning.");
+            }
+        }
+
+        // The sweep itself (shared by the nightly run and the Dev F11 force): biggest room first, same rules
+        // as manual washing. Returns what moved.
+        private static (float washed, int through) RunNightCrew(IModLogger log)
+        {
+            if (RugBooks.Dirty < MinWash) return (0f, 0);
+
             var rooms = new List<(BuildingRegistration reg, float room)>();
             foreach (BuildingRegistration reg in Fronts())
             {
@@ -233,12 +249,36 @@ namespace Rugs
                 washed += gross;
                 through++;
             }
+            return (washed, through);
+        }
 
-            if (washed >= 1f)
-            {
-                log?.Info($"RUGS! night crew washed ${washed:N0} through {through} front(s).");
-                RugPlug.Notify($"Night crew ran ${washed:N0} through {through} front{(through == 1 ? "" : "s")} — clean by morning.");
-            }
+        private static void WriteReport(int day, float washed, int through)
+            => RugBooks.SetRaw(KAutoWashReport,
+                day.ToString(CultureInfo.InvariantCulture) + "|" +
+                washed.ToString("R", CultureInfo.InvariantCulture) + "|" +
+                through.ToString(CultureInfo.InvariantCulture));
+
+        /// <summary>The GL's receipt line for the last night-crew run ("" if it has never run).</summary>
+        internal static string NightCrewReport()
+        {
+            string raw = RugBooks.GetRaw(KAutoWashReport);
+            if (string.IsNullOrEmpty(raw)) return "";
+            string[] f = raw.Split('|');
+            if (f.Length != 3) return "";
+            if (!float.TryParse(f[1], NumberStyles.Float, CultureInfo.InvariantCulture, out float washed)) return "";
+            if (!int.TryParse(f[2], NumberStyles.Integer, CultureInfo.InvariantCulture, out int through)) return "";
+            return washed >= 1f
+                ? $"last run: washed ${washed:N0} through {through} front{(through == 1 ? "" : "s")} (day {f[0]})"
+                : $"last run: nothing needed washing (day {f[0]})";
+        }
+
+        /// <summary>DEV (F11): run the night-crew sweep RIGHT NOW, ignoring the unlock/toggle/day gates, and
+        /// write the same receipt the nightly run does — instant verification without sleeping to midnight.</summary>
+        internal static void DevForceNightCrew(IModLogger log)
+        {
+            (float washed, int through) = RunNightCrew(log);
+            WriteReport(CurrentDay(), washed, through);
+            log?.Info($"RUGS! [dev] night crew forced: washed ${washed:N0} through {through} front(s); dirty now ${RugBooks.Dirty:N0}.");
         }
 
         // ---- quick wash (instant, vig, uncapped) ----

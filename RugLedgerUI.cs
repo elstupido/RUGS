@@ -182,6 +182,10 @@ namespace Rugs
                     SetStatus(RugLaunder.AutoWashEnabled ? "night crew hired — first run tonight." : "night crew stood down.");
                     Rebuild();
                 });
+                // The receipt: proof the automation ran (or that it had nothing to do). Written every night.
+                string rep = RugLaunder.NightCrewReport();
+                if (rep.Length > 0)
+                    NewText(panel, rep, 12, FontStyle.Italic, RugTheme.GreenDim).alignment = TextAnchor.MiddleCenter;
             }
             else
             {
