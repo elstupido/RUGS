@@ -272,6 +272,21 @@ namespace Rugs
                 : $"last run: nothing needed washing (day {f[0]})";
         }
 
+        /// <summary>
+        /// THE WASH's [WASH ALL · SAFE] button: run the same biggest-room-first safe sweep the night crew
+        /// runs, manually, any fleet size, any time of day. Same rules as pressing each button yourself —
+        /// per-front plausibility caps, real products, clears overnight. Does NOT write the night-crew
+        /// receipt (that stays the automation's paper trail). Returns the status line.
+        /// </summary>
+        internal static string WashAllSafe(IModLogger log = null)
+        {
+            if (RugBooks.Dirty < MinWash) return "Not enough dirty cash to bother washing.";
+            (float washed, int through) = RunNightCrew(log);
+            return washed >= 1f
+                ? $"Ran ${washed:N0} through {through} front{(through == 1 ? "" : "s")} — clears clean overnight, on the books and taxed."
+                : "No safe room anywhere today — take the quick wash, or let the books breathe until tomorrow.";
+        }
+
         /// <summary>DEV (F11): run the night-crew sweep RIGHT NOW, ignoring the unlock/toggle/day gates, and
         /// write the same receipt the nightly run does — instant verification without sleeping to midnight.</summary>
         internal static void DevForceNightCrew(IModLogger log)

@@ -96,6 +96,43 @@ namespace Rugs
             return s != null ? s.dirtyHeld : 0f;
         }
 
+        /// <summary>
+        /// THE BOOKS' [COLLECT ALL] button: sweep EVERY rider's held take into the stash in one click — the
+        /// bulk twin of <see cref="Collect"/>, same per-district AddDirty math (and therefore identical heat)
+        /// as collecting each by hand. Returns the status line.
+        /// </summary>
+        internal static string CollectAll()
+        {
+            EnsureLoaded();
+            if (_state == null || _state.all.Count == 0) return "No riders on the payroll.";
+
+            var owned = new Dictionary<string, BuildingRegistration>();
+            try
+            {
+                var gi = SaveGameManager.Current;
+                if (gi?.BuildingRegistrations != null)
+                    foreach (BuildingRegistration reg in gi.BuildingRegistrations)
+                        if (reg != null && reg.RentedByPlayer) owned[RugLaunder.Key(reg)] = reg;
+            }
+            catch { }
+
+            float total = 0f;
+            int riders = 0;
+            foreach (Sidecar s in _state.all)
+            {
+                if (s.dirtyHeld < 1f) continue;
+                float amt = Mathf.Floor(s.dirtyHeld);
+                owned.TryGetValue(s.addr, out BuildingRegistration reg);
+                RugBooks.AddDirty(amt, reg != null ? reg.Neighborhood : null, HeatWeight);
+                s.dirtyHeld -= amt;
+                total += amt;
+                riders++;
+            }
+            if (total < 1f) return "Nothing to collect yet — the riders are still working.";
+            Save();
+            return $"Collected ${total:N0} off {riders} rider{(riders == 1 ? "" : "s")} — it's in the stash now. Wash it.";
+        }
+
         /// <summary>Collect a sidecar's held dirty cash into the global dirty stash (this is what adds heat).</summary>
         internal static string Collect(BuildingRegistration reg)
         {

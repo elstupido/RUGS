@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -91,6 +92,57 @@ namespace Rugs
             scroll.verticalScrollbar = sb;
             scroll.verticalScrollbarVisibility = ScrollRect.ScrollbarVisibility.AutoHide;
             return crt;
+        }
+
+        // ---- shared widget kit (mono font via RugTheme; used by the terminal and its screens) ----
+
+        internal static Image NewImage(Transform parent, Color color)
+        {
+            var go = new GameObject("img", typeof(RectTransform));
+            go.transform.SetParent(parent, false);
+            var img = go.AddComponent<Image>();
+            img.color = color;
+            return img;
+        }
+
+        internal static void Stretch(RectTransform rt)
+        {
+            rt.anchorMin = Vector2.zero; rt.anchorMax = Vector2.one;
+            rt.offsetMin = Vector2.zero; rt.offsetMax = Vector2.zero;
+        }
+
+        internal static Text NewText(Transform parent, string text, int size, FontStyle style, Color color)
+        {
+            var go = new GameObject("txt", typeof(RectTransform));
+            go.transform.SetParent(parent, false);
+            var t = go.AddComponent<Text>();
+            t.font = RugTheme.Mono();
+            t.text = text;
+            t.fontSize = size;
+            t.fontStyle = style;
+            t.color = color;
+            t.horizontalOverflow = HorizontalWrapMode.Overflow;
+            t.verticalOverflow = VerticalWrapMode.Overflow;
+            t.alignment = TextAnchor.MiddleLeft;
+            return t;
+        }
+
+        internal static void NewButton(Transform parent, string label, Color color, float width, Action onClick)
+        {
+            var go = new GameObject("btn", typeof(RectTransform));
+            go.transform.SetParent(parent, false);
+            var img = go.AddComponent<Image>();
+            img.color = color;
+            var btn = go.AddComponent<Button>();
+            btn.targetGraphic = img;
+            btn.onClick.AddListener(() => onClick());
+            var le = go.AddComponent<LayoutElement>();
+            le.minHeight = 26f;
+            if (width > 0f) le.preferredWidth = width;
+
+            Text t = NewText(go.transform, label, 12, FontStyle.Bold, Color.white);
+            t.alignment = TextAnchor.MiddleCenter;
+            Stretch(t.rectTransform);
         }
 
         /// <summary>Call after (re)building content: hug the content up to the cap, then rest the scroll at the top.</summary>

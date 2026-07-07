@@ -118,9 +118,9 @@ namespace Rugs
             return pc != null && Vector3.Distance(pc.transform.position, transform.position) <= 2.5f;
         }
 
-        public override bool Interact() // left-click → launder
+        public override bool Interact() // left-click → boot CROOKBOOKS™ (the terminal: books, wash, everything)
         {
-            RugLaunderUI.Open();
+            RugTerminal.Open();
             return true;
         }
 
