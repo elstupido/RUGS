@@ -125,8 +125,8 @@ namespace Rugs
             {
                 case Screen.Boot:  BuildBoot();  break;
                 case Screen.Menu:  BuildMenu();  break;
-                case Screen.Books: BuildScreen("THE BOOKS", RugBooksScreen.Build); break;
-                case Screen.Wash:  BuildScreen("THE WASH",  RugWashScreen.Build);  break;
+                case Screen.Books: BuildScreen("THE BOOKS", "BOOKS.EXE", RugBooksScreen.Build); break;
+                case Screen.Wash:  BuildScreen("THE WASH",  "WASH.EXE",  RugWashScreen.Build);  break;
             }
             RugUi.Fit(_content);
         }
@@ -174,6 +174,7 @@ namespace Rugs
             RugUi.NewText(_content, new string('─', 56), 13, FontStyle.Normal, RugTheme.GreenDim);
             _status = RugUi.NewText(_content, StatusLine(), 12, FontStyle.Normal, RugTheme.Amber);
             RugUi.NewText(_content, "C:\\RUGS> _", 12, FontStyle.Normal, RugTheme.GreenDim);
+            KeyLegend("[1-3] SELECT    ·    [ESC] POWER OFF");
         }
 
         // A menu line, clickable and keyed: "[1]  THE BOOKS .......... businesses, riders, the balance"
@@ -195,11 +196,14 @@ namespace Rugs
             t.rectTransform.offsetMin = new Vector2(12f, 0f); // left padding inside the row
         }
 
-        // Chrome for a full screen: title banner, the glance strip, the content, status, and the way home.
-        private static void BuildScreen(string title, Action<Transform> buildContent)
+        // Chrome for a full screen: title banner, the command prompt you "ran", the glance strip, the content,
+        // status, the way home, and the key-legend footer.
+        private static void BuildScreen(string title, string exe, Action<Transform> buildContent)
         {
             RugUi.NewText(_content, RugTheme.Banner(title), 16, FontStyle.Bold, RugTheme.GreenBright)
                 .alignment = TextAnchor.MiddleCenter;
+            RugUi.NewText(_content, "C:\\RUGS> RUN " + exe, 12, FontStyle.Normal, RugTheme.GreenDim)
+                .alignment = TextAnchor.MiddleLeft;
             GlanceStrip();
             RugUi.NewText(_content, new string('─', 56), 13, FontStyle.Normal, RugTheme.GreenDim);
 
@@ -209,7 +213,12 @@ namespace Rugs
             RugUi.NewText(_content, new string('─', 56), 13, FontStyle.Normal, RugTheme.GreenDim);
             _status = RugUi.NewText(_content, StatusLine(), 12, FontStyle.Normal, RugTheme.Amber);
             RugUi.NewButton(_content, "←  MENU  (Esc)", Slate, 0f, Back);
+            KeyLegend("[ESC] MENU    ·    [WHEEL / DRAG] SCROLL");
         }
+
+        // The dim key-legend bar along the bottom — the Norton-Commander touch that also teaches the keyboard.
+        private static void KeyLegend(string keys)
+            => RugUi.NewText(_content, keys, 11, FontStyle.Normal, RugTheme.GreenDim).alignment = TextAnchor.MiddleCenter;
 
         // The numbers you always need, one look away on every screen: the stash, the heat, today's wash room.
         private static void GlanceStrip()
