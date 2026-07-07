@@ -30,7 +30,8 @@ namespace Rugs
         // so home is the guaranteed offload spot (it sells commons only; prices are the district's normal rates).
         public bool IsAnchor { get; private set; }
 
-        private static readonly string[] DealerNames =
+        // Internal: RugFlavor signs the laundry screen's rotating quote with one of these names.
+        internal static readonly string[] DealerNames =
             { "Reggie", "Slim", "Tony Two-Times", "Mickey", "Vinnie", "Dutch", "Smalls", "Caine", "Frankie", "Ace" };
 
         // Every dealer wears ONE fixed look so the player recognises them on sight: a street/hood

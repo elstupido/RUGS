@@ -75,7 +75,11 @@ namespace Rugs
         {
             NewText(panel, RugTheme.Banner("LAUNDERING"), 18, FontStyle.Bold, RugTheme.GreenBright)
                 .alignment = TextAnchor.MiddleCenter;
-            NewText(panel, "turn dirty cash clean — fast for a cut, or cheap through your own businesses", 12, FontStyle.Italic, new Color(0.7f, 0.7f, 0.7f))
+            NewText(panel, $"RUGSOFT™ LAUNDRY v{RugsConfig.Version}", 11, FontStyle.Italic, RugTheme.GreenDim)
+                .alignment = TextAnchor.MiddleCenter;
+            // A rotating one-liner off the street — verbatim dopewars sayings (GPL, see RugFlavor), signed by
+            // one of our dealers. Fresh pull every time the panel opens.
+            NewText(panel, RugFlavor.DealerQuote(), 12, FontStyle.Italic, new Color(0.7f, 0.7f, 0.7f))
                 .alignment = TextAnchor.MiddleCenter;
 
             _dirty = NewText(panel, DirtyText(), 14, FontStyle.Bold, new Color(0.85f, 0.62f, 0.55f));

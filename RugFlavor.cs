@@ -57,5 +57,16 @@ namespace Rugs
             string saying = Sayings[UnityEngine.Random.Range(0, Sayings.Length)];
             return opener + " “" + saying + "”";
         }
+
+        /// <summary>A signed one-liner for the laundry screen: a verbatim dopewars saying (same GPL-attributed
+        /// catalogue as <see cref="Line"/>), credited to one of the street dealers off our roster. Re-rolled
+        /// each time the panel opens.</summary>
+        internal static string DealerQuote()
+        {
+            if (Sayings.Length == 0) return "";
+            string saying = Sayings[UnityEngine.Random.Range(0, Sayings.Length)];
+            string name = RugDealerController.DealerNames[UnityEngine.Random.Range(0, RugDealerController.DealerNames.Length)];
+            return "“" + saying + "”  — " + name;
+        }
     }
 }
