@@ -53,7 +53,7 @@ in-game midnight ("clears overnight"). `wholesalePrice=0` makes the whole sum pr
 **tax is the cost** — there's no separate fee.
    - **Plausibility-bound.** A business absorbs only so much before the books look cooked. Safe
      daily capacity = the business's *organic* trailing daily revenue × `PlausibleInflation`
-     (1.5 since v1.6.2 — the balance master knob; rider intake is locked to it at ×12/7), where organic = reported revenue minus our own past washes (so a wash can't inflate
+     (1.5 since v1.6.0 — the balance master knob; rider intake is locked to it at ×12/7), where organic = reported revenue minus our own past washes (so a wash can't inflate
      its own ceiling). A dead shell — or a future rug front with $0 legit BA income — has ~$0
      capacity, so the model is self-consistent.
    - **Greed draws the IRS.** You can push past the safe line, but every over-plausible dollar

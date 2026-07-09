@@ -5,35 +5,24 @@ Versioning: `<major>.<minor>.<patch>` plus a fixed `.0.4.2.0` tail (e.g. `1.3.0.
 
 ---
 
-## 2026-07-09 — Balance re-rule: wash room 1.5×, intake follows → v1.6.2
+## 2026-07-09 — Balance: wash room 1.5×, intake follows (folded into v1.6.0)
 
-1.6.1's doubling lasted about ten minutes. Boss looked at it again: no — **the wash room is the number he
-wants to set**, and intake should be "the appropriate figure given the washroom." So the knobs got restructured
-to match how he actually tunes:
+Same day as the overhaul, before the upload, boss sized up realistic fleet counts against the take: rug money
+on a business should feel like RUG money. First ruling doubled both sides; ten minutes later the re-rule
+landed on the real shape — **the wash room is the number he sets**, and intake should be "the appropriate
+figure given the washroom." The knobs got restructured to match how he actually tunes:
 
-- `RugLaunder.PlausibleInflation` **0.70 → 1.5** — a front now washes up to 1.5× its ORGANIC daily revenue
+- `RugLaunder.PlausibleInflation` **0.35 → 1.5** — a front now washes up to 1.5× its ORGANIC daily revenue
   (yes, past 1.0: the books run hotter than the register; the wash-log subtraction still anchors the cap to
   organic revenue, so there's no bootstrap).
-- `RugSidecars.Factor` is now **DERIVED IN SOURCE**: `PlausibleInflation × 12/7` (≈2.57). The 12/7 is the
-  original 0.6/0.35 washers-per-earner doctrine ratio, now encoded as a const expression — one master knob,
-  intake follows, the two can never drift apart in a future tune. Verified the computed float (2.5714285…)
-  baked into the release IL at the byte level.
+- `RugSidecars.Factor` is now **DERIVED IN SOURCE**: `PlausibleInflation × 12/7` (≈2.57, was 0.6). The 12/7
+  is the original 0.6/0.35 washers-per-earner doctrine ratio, now encoded as a const expression — one master
+  knob, intake follows, the two can never drift apart in a future tune. Verified the computed float
+  (2.5714285…) baked into the release IL at the byte level.
 
-Net vs what players have (1.6.0): ~4.3× the money on both sides, ratio untouched. 1.6.1 was tagged but never
-uploaded — the Workshop jumps 1.6.0 → 1.6.2.
-
----
-
-## 2026-07-09 — Balance: the money doubled → v1.6.1
-
-Boss's ruling after sizing up realistic fleet counts against the take: rug money on a business should feel
-like RUG money. **Both sides of the machine doubled, across the board** — rider intake `RugSidecars.Factor`
-0.6 → **1.2** (dirty minted per $1 of the front's organic revenue), wash room `RugLaunder.PlausibleInflation`
-0.35 → **0.70** (safe daily wash as a share of organic revenue).
-
-The balance doctrine holds by construction: both knobs moved at the identical rate, so the washers-per-earner
-ratio stays exactly 1.714 — the expansion pressure that forces empire-building is untouched, the empire just
-pays twice as much at every size. Factory boosts multiply on top of the new bases and were left alone.
+Net: ~4.3× the money on both sides, ratio untouched, factory boosts multiplying on the new bases unchanged.
+Since 1.6.0 hadn't gone to the Workshop yet, this shipped INSIDE it — the interim v1.6.1/v1.6.2 tags were
+retired and v1.6.0 is the release.
 
 ---
 

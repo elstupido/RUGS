@@ -59,13 +59,6 @@ The mod stays dormant until your first deal. Never deal with a dealer and your s
 
 [hr][/hr]
 
-[h2]What's new — 1.6.2.4.2.0[/h2]
-[list]
-[*][b]The money got serious.[/b] Every front now washes up to 1.5× its real daily revenue (was 0.35×), and rider intake scaled up to match — over 4× across the board. The balance is untouched: intake and wash room grew at the same rate, so a balanced network stays balanced. Running rugs now pays like running rugs.
-[/list]
-
-[hr][/hr]
-
 [h2]What's new — 1.6.0.4.2.0[/h2]
 [list]
 [*][b]CROOKBOOKS™ by RUGSOFT.[/b] The laundry computer got a full overhaul into one period-correct app. It boots (watch the POST — 640K RAM ... OK, TWO SETS OF BOOKS ... FOUND), drops you at a main menu, and runs on number keys and Esc like it's 1989. Any key skips the boot.
@@ -73,6 +66,7 @@ The mod stays dormant until your first deal. Never deal with a dealer and your s
 [*][b]THE WASH.[/b] The laundering screen, now in the same green: quick wash, per-front washing, and [b]WASH ALL[/b] — one click runs the night crew's safe sweep by hand, biggest room first, no cut, any time.
 [*][b]The glass.[/b] Scanlines, phosphor vignette, a whisper of flicker, command prompts, key legends. Everything still clicks the same underneath.
 [*][b]Washed-out rows tell you why.[/b] A front that's done for the day now says what moved through it ("washed $57,132 today") instead of a wall of "tapped out" that read like a bug.
+[*][b]The money got serious.[/b] Every front now washes up to 1.5× its real daily revenue (was 0.35×), and rider intake scaled up to match — over 4× across the board. The balance is untouched: intake and wash room grew at the same rate, so a balanced network stays balanced. Running rugs now pays like running rugs.
 [/list]
 
 [hr][/hr]
