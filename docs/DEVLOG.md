@@ -5,6 +5,25 @@ Versioning: `<major>.<minor>.<patch>` plus a fixed `.0.4.2.0` tail (e.g. `1.3.0.
 
 ---
 
+## 2026-07-09 — Balance re-rule: wash room 1.5×, intake follows → v1.6.2
+
+1.6.1's doubling lasted about ten minutes. Boss looked at it again: no — **the wash room is the number he
+wants to set**, and intake should be "the appropriate figure given the washroom." So the knobs got restructured
+to match how he actually tunes:
+
+- `RugLaunder.PlausibleInflation` **0.70 → 1.5** — a front now washes up to 1.5× its ORGANIC daily revenue
+  (yes, past 1.0: the books run hotter than the register; the wash-log subtraction still anchors the cap to
+  organic revenue, so there's no bootstrap).
+- `RugSidecars.Factor` is now **DERIVED IN SOURCE**: `PlausibleInflation × 12/7` (≈2.57). The 12/7 is the
+  original 0.6/0.35 washers-per-earner doctrine ratio, now encoded as a const expression — one master knob,
+  intake follows, the two can never drift apart in a future tune. Verified the computed float (2.5714285…)
+  baked into the release IL at the byte level.
+
+Net vs what players have (1.6.0): ~4.3× the money on both sides, ratio untouched. 1.6.1 was tagged but never
+uploaded — the Workshop jumps 1.6.0 → 1.6.2.
+
+---
+
 ## 2026-07-09 — Balance: the money doubled → v1.6.1
 
 Boss's ruling after sizing up realistic fleet counts against the take: rug money on a business should feel

@@ -59,9 +59,9 @@ The mod stays dormant until your first deal. Never deal with a dealer and your s
 
 [hr][/hr]
 
-[h2]What's new — 1.6.1.4.2.0[/h2]
+[h2]What's new — 1.6.2.4.2.0[/h2]
 [list]
-[*][b]The money doubled.[/b] Riders take in twice the dirty cash, and every front washes twice as much a day — across the board. Running rugs on a business should feel like running rugs. The balance is untouched: intake and wash room grew at the same rate, so a balanced network stays balanced. It just pays double.
+[*][b]The money got serious.[/b] Every front now washes up to 1.5× its real daily revenue (was 0.35×), and rider intake scaled up to match — over 4× across the board. The balance is untouched: intake and wash room grew at the same rate, so a balanced network stays balanced. Running rugs now pays like running rugs.
 [/list]
 
 [hr][/hr]

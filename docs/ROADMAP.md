@@ -113,9 +113,9 @@ which stores earn, which wash, and where the factory supply flows.
 - **Market events:** `RugEvents` — `DailyEventChance`, `SpikeMin/Max`, `CrashMin/Max`, `DaysMin/Max`, `MaxActive`.
 - **Arrival events:** `RugEvents` — `ArrivalChance`, per-event weights in `RollConsequence`.
 - **Factory multiplier:** `RugFactoryBoost` — `BoostScale` (1000: $1k/day of supply = +100%), `MaxBoost` (10 = ×11 ceiling).
-- **Laundering:** `RugLaunder` — `PlausibleInflation` (0.35), `WindowDays` (7), `DealerVig` (0.30),
+- **Laundering:** `RugLaunder` — `PlausibleInflation` (1.5 — THE balance master knob), `WindowDays` (7), `DealerVig` (0.30),
   `AutoWashMinBusinesses` (5 — the night-crew unlock, toggled in the Grand Ledger).
-- **Sidecars:** `RugSidecars` — `Factor` (0.6), `Wage`, `HeatWeight`.
+- **Sidecars:** `RugSidecars` — `Factor` (derived: `PlausibleInflation` × 12/7 ≈ 2.57 — never tuned directly), `Wage`, `HeatWeight`.
 - **Heat:** `RugHeat` — `HeatLoadForMax`, `HeatLoadDecayPerDay` (0.72), `CoolPerDay` (25), `MaxDailyAuditChance`, `MaxAuditRate`.
 - **Per-rug:** `RugCatalog` — base price, `HeatWeight`, common/rare.
 - **Release switch:** `RugsConfig.Dev`.

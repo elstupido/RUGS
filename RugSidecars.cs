@@ -15,7 +15,10 @@ namespace Rugs
     internal static class RugSidecars
     {
         // ---- tuning ----
-        internal const float Factor     = 1.2f;  // dirty cash minted per $1 of the front's organic daily revenue
+        // Dirty cash minted per $1 of the front's organic daily revenue. LOCKED to the wash knob × 12/7:
+        // the washers-per-earner ratio (~1.7) is the expansion pressure that forces a bigger fleet — retune
+        // the economy via RugLaunder.PlausibleInflation and this follows; never move the two independently.
+        internal const float Factor     = RugLaunder.PlausibleInflation * 12f / 7f;
         internal const float Wage       = 0f;    // flat daily dealer wage netted from the take (Phase A: 0; tune later)
         internal const float HeatWeight = 1.0f;  // IRS heat per $ when the held dirty cash is COLLECTED into the stash
 
