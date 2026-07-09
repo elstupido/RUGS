@@ -5,6 +5,34 @@ Versioning: `<major>.<minor>.<patch>` plus a fixed `.0.4.2.0` tail (e.g. `1.3.0.
 
 ---
 
+## 2026-07-09 — CROOKBOOKS™: the laundry-computer overhaul → v1.6.0
+
+The UI debt release. The laundry computer had accreted across versions — v1.3's gold LAUNDERING screen with
+v1.5's green GRAND LEDGER bolted on behind a door — two brands, two palettes, and the core loop (check
+balance → collect → wash) hopping between them. UX ruling from the boss: one period-correct app, and the
+menu hop IS the immersion — "it should FEEL like using a late-80s/early-90s computer."
+
+- **CROOKBOOKS™ by RUGSOFT.** New `RugTerminal` owns the window: a type-on boot POST
+  (`(C) 1989 RUGSOFT CORP — ALL RIGHTS DENIED`, `TWO SETS OF BOOKS ... FOUND`; any key skips), a main menu
+  with a dealer quote and the glance strip (STASH · HEAT · WASH ROOM), numbered screens driven by keyboard
+  (1–3, Esc backs out one level) or mouse. `RugLedgerUI`/`RugLaunderUI`/`RugDealersUI` are gone; the first
+  two became content builders (`RugBooksScreen`/`RugWashScreen`) that render into the terminal.
+- **THE BOOKS** (the GL, renamed) picked up **COLLECT ALL** — sweeps every rider's held cash with the exact
+  per-district math of clicking each. **THE WASH** picked up **WASH ALL** — the night crew's biggest-room-first
+  safe sweep, run by hand, no vig; the night-crew receipt stays the automation's paper trail (manual sweeps
+  don't write it).
+- **The glass.** `RugCrt`: procedural scanlines + radial vignette + a 0.5 Hz alpha flicker, laid over the
+  panel as a raycast-transparent overlay — no assets, textures built once and cached. Plus the chrome:
+  `C:\RUGS>` prompt lines and key-legend footers on every screen.
+- **Feedback bug, not a math bug.** Boss's walkthrough flagged "ALL businesses show tapped out" — the caps
+  were right; the sweep (WASH ALL / night crew) had simply used the day's room and the screen went silent
+  about it. Rows now show what happened: "washed $X today" / "no sales history yet", with a night-crew-aware
+  headline when the whole fleet is done.
+- Verified via the Dev-build dance (F10 stress rows, F11 forced night crew), then byte-probed the release
+  DLL: dev strings absent, feature strings present, `1.6.0.0.4.2.0` stamped.
+
+---
+
 ## 2026-07-07 — Scrollbars, one console, receipts → v1.5.2
 
 Launch-week polish, driven by watching real users hit real walls.
