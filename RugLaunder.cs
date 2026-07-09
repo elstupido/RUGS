@@ -27,7 +27,7 @@ namespace Rugs
     internal static class RugLaunder
     {
         // ---- tuning knobs ----
-        internal const float PlausibleInflation = 0.35f; // safe daily wash = this × the business's organic daily revenue
+        internal const float PlausibleInflation = 0.70f; // safe daily wash = this × the business's organic daily revenue
         internal const int   WindowDays         = 7;     // trailing window used to gauge "believable" revenue
         internal const float MinWash            = 100f;  // don't bother below this
 

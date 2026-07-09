@@ -11,10 +11,10 @@
          The full string lives in InformationalVersion (free-form); AssemblyVersion/FileVersion must be
          valid 4-part .NET versions, so they carry the true version 1.6.0 (padded to 1.6.0.0).
          Only bump the first three segments; the .0.4.2.0 tail never changes. -->
-    <Version>1.6.0</Version>
-    <AssemblyVersion>1.6.0.0</AssemblyVersion>
-    <FileVersion>1.6.0.0</FileVersion>
-    <InformationalVersion>1.6.0.0.4.2.0</InformationalVersion>
+    <Version>1.6.1</Version>
+    <AssemblyVersion>1.6.1.0</AssemblyVersion>
+    <FileVersion>1.6.1.0</FileVersion>
+    <InformationalVersion>1.6.1.0.4.2.0</InformationalVersion>
     <!-- Keep the branded string exact (no auto-appended +<git-hash>). -->
     <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>

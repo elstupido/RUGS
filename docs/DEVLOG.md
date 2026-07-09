@@ -5,6 +5,19 @@ Versioning: `<major>.<minor>.<patch>` plus a fixed `.0.4.2.0` tail (e.g. `1.3.0.
 
 ---
 
+## 2026-07-09 — Balance: the money doubled → v1.6.1
+
+Boss's ruling after sizing up realistic fleet counts against the take: rug money on a business should feel
+like RUG money. **Both sides of the machine doubled, across the board** — rider intake `RugSidecars.Factor`
+0.6 → **1.2** (dirty minted per $1 of the front's organic revenue), wash room `RugLaunder.PlausibleInflation`
+0.35 → **0.70** (safe daily wash as a share of organic revenue).
+
+The balance doctrine holds by construction: both knobs moved at the identical rate, so the washers-per-earner
+ratio stays exactly 1.714 — the expansion pressure that forces empire-building is untouched, the empire just
+pays twice as much at every size. Factory boosts multiply on top of the new bases and were left alone.
+
+---
+
 ## 2026-07-09 — CROOKBOOKS™: the laundry-computer overhaul → v1.6.0
 
 The UI debt release. The laundry computer had accreted across versions — v1.3's gold LAUNDERING screen with

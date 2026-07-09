@@ -59,6 +59,13 @@ The mod stays dormant until your first deal. Never deal with a dealer and your s
 
 [hr][/hr]
 
+[h2]What's new — 1.6.1.4.2.0[/h2]
+[list]
+[*][b]The money doubled.[/b] Riders take in twice the dirty cash, and every front washes twice as much a day — across the board. Running rugs on a business should feel like running rugs. The balance is untouched: intake and wash room grew at the same rate, so a balanced network stays balanced. It just pays double.
+[/list]
+
+[hr][/hr]
+
 [h2]What's new — 1.6.0.4.2.0[/h2]
 [list]
 [*][b]CROOKBOOKS™ by RUGSOFT.[/b] The laundry computer got a full overhaul into one period-correct app. It boots (watch the POST — 640K RAM ... OK, TWO SETS OF BOOKS ... FOUND), drops you at a main menu, and runs on number keys and Esc like it's 1989. Any key skips the boot.

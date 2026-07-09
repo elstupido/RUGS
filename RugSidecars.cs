@@ -15,7 +15,7 @@ namespace Rugs
     internal static class RugSidecars
     {
         // ---- tuning ----
-        internal const float Factor     = 0.6f;  // dirty cash minted per $1 of the front's organic daily revenue
+        internal const float Factor     = 1.2f;  // dirty cash minted per $1 of the front's organic daily revenue
         internal const float Wage       = 0f;    // flat daily dealer wage netted from the take (Phase A: 0; tune later)
         internal const float HeatWeight = 1.0f;  // IRS heat per $ when the held dirty cash is COLLECTED into the stash
 
